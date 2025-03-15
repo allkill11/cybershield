@@ -1,0 +1,157 @@
+/* 🌟 Styles Généraux */
+body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #000428, #004e92);
+    color: white;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* 🌟 Barre de Navigation */
+nav {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+nav button {
+    background: #0072ff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+nav button:hover {
+    background: #00c6ff;
+    transform: scale(1.1);
+}
+
+/* 🌟 Conteneur Principal */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+/* 🌟 Titres */
+h1 {
+    font-size: 26px;
+    color: #00c6ff;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 22px;
+    color: #ffffff;
+}
+
+/* 🌟 Inputs & Formulaires */
+input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #0072ff;
+    border-radius: 8px;
+    outline: none;
+    margin-top: 10px;
+}
+
+/* 🌟 Boutons Modernes */
+button {
+    background: #00c6ff;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #0072ff;
+    transform: scale(1.05);
+}
+
+/* 🌟 Résultats & Historique */
+#result-box, #history {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#result-box p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 🌟 Messages d'Alerte */
+.safe {
+    background: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.danger {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* 🌟 Animations et Effets */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container, nav, button, input {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 🌟 Sections Masquées */
+.hidden {
+    display: none;
+}
+
+/* 🌟 Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+    
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav button {
+        width: 80%;
+        margin: 5px 0;
+    }
+}

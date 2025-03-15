@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield Web</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 CyberShield Web</h1>
+
+        <nav>
+            <button onclick="toggleSection('site-checker')">🔎 Vérification de Sites</button>
+            <button onclick="toggleSection('password-manager')">🔑 Gestionnaire de Mots de Passe</button>
+            <button onclick="toggleSection('breach-checker')">📜 Vérification de Fuite de Données</button>
+            <button onclick="toggleSection('file-scanner')">🛡 Analyse de Fichiers</button>
+        </nav>
+
+        <section id="site-checker">
+            <h2>🔎 Vérification de Sites</h2>
+            <input type="text" id="urlInput" placeholder="https://example.com">
+            <button onclick="checkSite()">Vérifier</button>
+            <div id="loader" class="hidden">⏳ Analyse en cours...</div>
+            <div id="result-box" class="hidden">
+                <h2>Résultat :</h2>
+                <p id="result">Aucune vérification effectuée</p>
+                <button id="copy-button" class="hidden" onclick="copyResult()">📋 Copier</button>
+                <button id="report-button" class="hidden" onclick="reportSite()">🚨 Signaler ce site</button>
+            </div>
+            <div id="history">
+                <h3>📜 Historique</h3>
+                <div id="history-list"></div>
+                <button onclick="clearHistory()">🗑 Effacer l'historique</button>
+            </div>
+        </section>
+
+        <section id="password-manager" class="hidden">
+            <h2>🔑 Gestionnaire de Mots de Passe</h2>
+            <input type="text" id="generated-password" readonly>
+            <button onclick="generatePassword()">🔄 Générer</button>
+            <button onclick="copyPassword()">📋 Copier</button>
+            <h3>🔎 Vérification de la Robustesse</h3>
+            <input type="password" id="passwordInput" placeholder="Entrez un mot de passe">
+            <button onclick="checkPasswordStrength()">Vérifier</button>
+            <p id="password-strength"></p>
+        </section>
+
+        <section id="breach-checker" class="hidden">
+            <h2>📜 Vérification de Fuite de Données</h2>
+            <input type="email" id="emailInput" placeholder="Entrez votre email">
+            <button onclick="checkDataBreach()">Vérifier</button>
+            <p id="breach-result"></p>
+        </section>
+
+        <section id="file-scanner" class="hidden">
+            <h2>🛡 Analyse de Fichiers</h2>
+            <input type="file" id="fileInput">
+            <button onclick="scanFile()">Analyser</button>
+            <p id="file-result"></p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
