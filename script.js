@@ -17,7 +17,7 @@ function checkSite() {
     document.getElementById("loader").classList.remove("hidden");
     document.getElementById("result-box").classList.add("hidden");
 
-    fetch(`http://127.0.0.1:5000/check-site?url=${encodeURIComponent(url)}`)
+    fetch(`https://cybershield-api-2.onrender.com/check-site?url=${encodeURIComponent(url)}`)
         .then(response => response.json())
         .then(data => {
             let resultElement = document.getElementById("result");
