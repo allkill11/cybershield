@@ -124,7 +124,7 @@ function checkDataBreach() {
     }
 
     fetch(`https://haveibeenpwned.com/api/v3/breachedaccount/${encodeURIComponent(email)}`, {
-        headers: { "hibp-api-key": "TA_CLE_API" }
+        headers: { "hibp-api-key": "04cb4ed4a8c73c7b33816cc58a5d59b44be08615" }
     })
     .then(response => response.json())
     .then(data => {
