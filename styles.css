@@ -1,157 +1,228 @@
-/* 🌟 Styles Généraux */
+/* 🌐 Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* 🌌 Fond général et typographie */
 body {
     font-family: 'Poppins', sans-serif;
-    text-align: center;
-    background: linear-gradient(to right, #000428, #004e92);
-    color: white;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
     margin: 0;
-    height: 100vh;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 🔷 Barre de navigation centrée */
+.navbar {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-}
-
-/* 🌟 Barre de Navigation */
-nav {
-    background-color: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
     position: fixed;
     top: 0;
-    width: 100%;
-    padding: 15px 0;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 24px;
+    max-width: 90%;
+    z-index: 999;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.6s ease-in-out;
 }
 
-nav button {
-    background: #0072ff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 25px;
+/* 🔸 Logo */
+.logo {
+    color: #00c6ff;
     font-weight: bold;
-    transition: all 0.3s ease;
+    font-size: 20px;
+    margin-right: 24px;
 }
 
-nav button:hover {
-    background: #00c6ff;
+/* 🔸 Liens de navigation */
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 16px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.nav-links li a:hover {
+    background: rgba(255, 255, 255, 0.2);
     transform: scale(1.1);
 }
 
-/* 🌟 Conteneur Principal */
+/* 🔸 Menu mobile */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 24px;
+        background: rgba(0, 0, 0, 0.85);
+        padding: 12px;
+        border-radius: 16px;
+        animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+}
+
+/* 📦 Conteneur principal */
 .container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 600px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 120px auto 40px;
+    max-width: 700px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    text-align: center;
+    animation: fadeInUp 0.8s ease-out;
 }
 
-/* 🌟 Titres */
-h1 {
-    font-size: 26px;
+/* ✨ Titres */
+h1, h2 {
+    text-align: center;
     color: #00c6ff;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
-h2 {
-    font-size: 22px;
-    color: #ffffff;
+/* 📥 Inputs et boutons */
+input, button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    margin: 8px 0;
+    outline: none;
 }
 
-/* 🌟 Inputs & Formulaires */
 input {
     width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 2px solid #0072ff;
-    border-radius: 8px;
-    outline: none;
-    margin-top: 10px;
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid #00c6ff;
 }
 
-/* 🌟 Boutons Modernes */
 button {
-    background: #00c6ff;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
     color: white;
-    border: none;
-    padding: 12px 18px;
-    margin-top: 10px;
-    font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
-    border-radius: 25px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
-    background: #0072ff;
-    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 198, 255, 0.5);
 }
 
-/* 🌟 Résultats & Historique */
-#result-box, #history {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 15px;
-    border-radius: 10px;
+/* ✅ Résultats et historique */
+#result-box, #history-list {
+    background: rgba(255,255,255,0.08);
+    padding: 16px;
     margin-top: 20px;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    text-align: left;
 }
 
-#result-box p {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* 🌟 Messages d'Alerte */
+/* 🧩 Amélioration des alertes safe/danger */
 .safe {
-    background: #d4edda;
+    background: linear-gradient(to right, #d4edda, #c3e6cb);
     color: #155724;
-    padding: 10px;
+    border-left: 6px solid #28a745;
     border-radius: 10px;
+    padding: 14px 18px;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+    animation: fadeInUp 0.6s ease;
+    font-weight: 500;
 }
 
 .danger {
-    background: #f8d7da;
+    background: linear-gradient(to right, #f8d7da, #f5c6cb);
     color: #721c24;
-    padding: 10px;
+    border-left: 6px solid #dc3545;
     border-radius: 10px;
+    padding: 14px 18px;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+    animation: fadeInUp 0.6s ease;
+    font-weight: 500;
 }
 
-/* 🌟 Animations et Effets */
+/* 🔁 Animations */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-.container, nav, button, input {
-    animation: fadeIn 0.5s ease-in-out;
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-/* 🌟 Sections Masquées */
+/* 🕶️ Sections cachées */
 .hidden {
     display: none;
 }
+body.light-mode {
+  background: linear-gradient(to right, #f0f0f0, #e0e0e0);
+  color: #111;
+}
 
-/* 🌟 Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        width: 95%;
-    }
-    
-    nav {
-        flex-direction: column;
-        align-items: center;
-    }
+body.dark-mode {
+  background: linear-gradient(to right, #000428, #004e92);
+  color: white;
+}
 
-    nav button {
-        width: 80%;
-        margin: 5px 0;
-    }
+.dark-mode .container {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.light-mode .container {
+  background: rgba(0, 0, 0, 0.05);
+}
+.theme-footer {
+  text-align: center;
+  margin-top: 60px;
+  padding-bottom: 30px;
+}
+
+.theme-footer button {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-footer button:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
