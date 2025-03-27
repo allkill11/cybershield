@@ -81,6 +81,55 @@ function copyResult() {
         alert("Résultat copié !");
     });
 }
+// ✅ Ajouter un site à la whitelist
+function addToWhitelist() {
+  const input = document.getElementById("whitelistInput");
+  const url = input.value.trim();
+  if (!url) return alert("Entrez un site valide.");
+
+  let whitelist = JSON.parse(localStorage.getItem("whitelistSites")) || [];
+  if (!whitelist.includes(url)) {
+    whitelist.push(url);
+    localStorage.setItem("whitelistSites", JSON.stringify(whitelist));
+    displayWhitelist();
+    input.value = "";
+  } else {
+    alert("Ce site est déjà dans votre liste blanche.");
+  }
+}
+
+// ✅ Afficher les sites whitelistés
+function displayWhitelist() {
+  const list = document.getElementById("whitelist-list");
+  const whitelist = JSON.parse(localStorage.getItem("whitelistSites")) || [];
+  list.innerHTML = "";
+  whitelist.forEach(site => {
+    const li = document.createElement("li");
+    li.innerHTML = `🔗 ${site} <button onclick="removeFromWhitelist('${site}')">❌</button>`;
+    list.appendChild(li);
+  });
+}
+
+// ✅ Supprimer un site de la liste blanche
+function removeFromWhitelist(site) {
+  let whitelist = JSON.parse(localStorage.getItem("whitelistSites")) || [];
+  whitelist = whitelist.filter(s => s !== site);
+  localStorage.setItem("whitelistSites", JSON.stringify(whitelist));
+  displayWhitelist();
+}
+
+// ✅ Vider toute la whitelist
+function clearWhitelist() {
+  localStorage.removeItem("whitelistSites");
+  displayWhitelist();
+}
+
+// ✅ Chargement auto au démarrage
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById("whitelist-list")) {
+    displayWhitelist();
+  }
+});
 
 // 🔹 Génération de mots de passe sécurisés
 function generatePassword() {
@@ -156,3 +205,127 @@ function scanFile() {
         document.getElementById("file-result").innerHTML = isMalicious ? `⚠️ Fichier suspect détecté !` : `✅ Fichier sécurisé.`;
     }, 2000);
 }
+function generatePassword() {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    let password = "";
+    for (let i = 0; i < 16; i++) {
+        password += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+    document.getElementById("generated-password").value = password;
+    savePassword(password);
+}
+
+function generateCustomPassword() {
+    const length = parseInt(document.getElementById("passwordLength").value);
+    const includeLowercase = document.getElementById("includeLowercase").checked;
+    const includeUppercase = document.getElementById("includeUppercase").checked;
+    const includeNumbers = document.getElementById("includeNumbers").checked;
+    const includeSymbols = document.getElementById("includeSymbols").checked;
+
+    const lowercase = "abcdefghijklmnopqrstuvwxyz";
+    const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numbers = "0123456789";
+    const symbols = "!@#$%^&*()_+-=[]{}|;:',.<>/?";
+    
+    let charset = "";
+    if (includeLowercase) charset += lowercase;
+    if (includeUppercase) charset += uppercase;
+    if (includeNumbers) charset += numbers;
+    if (includeSymbols) charset += symbols;
+
+    if (charset.length === 0) {
+        alert("Veuillez sélectionner au moins un type de caractère.");
+        return;
+    }
+
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        password += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+
+    document.getElementById("customPasswordOutput").value = password;
+    savePassword(password);
+}
+
+function copyPassword() {
+    let password = document.getElementById("generated-password").value;
+    if (!password) return alert("Générez d'abord un mot de passe !");
+    navigator.clipboard.writeText(password);
+    alert("Mot de passe copié !");
+}
+
+function togglePasswordVisibility() {
+    const input = document.getElementById("passwordInput");
+    input.type = input.type === "password" ? "text" : "password";
+}
+
+function checkPasswordStrength() {
+    let password = document.getElementById("passwordInput").value;
+    let fill = document.getElementById("password-strength-fill");
+    let strength = "⚠️ Faible", width = "30%", color = "red";
+
+    if (password.length >= 12 && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#$%^&*]/.test(password)) {
+        strength = "✅ Fort"; width = "100%"; color = "green";
+    } else if (password.length >= 8) {
+        strength = "⚠️ Moyen"; width = "60%"; color = "orange";
+    }
+
+    document.getElementById("password-strength").innerHTML = `Robustesse : ${strength}`;
+    fill.style.width = width;
+    fill.style.backgroundColor = color;
+}
+
+function updateLengthLabel(value) {
+    document.getElementById("lengthLabel").innerText = value;
+}
+
+function savePassword(password) {
+    let saved = JSON.parse(localStorage.getItem("savedPasswords")) || [];
+    saved.unshift(password);
+    if (saved.length > 10) saved = saved.slice(0, 10);
+    localStorage.setItem("savedPasswords", JSON.stringify(saved));
+    displaySavedPasswords();
+}
+
+function displaySavedPasswords() {
+    const list = document.getElementById("saved-passwords");
+    const saved = JSON.parse(localStorage.getItem("savedPasswords")) || [];
+    list.innerHTML = "";
+    saved.forEach(pwd => {
+        const li = document.createElement("li");
+        li.textContent = "🔐 " + pwd;
+        list.appendChild(li);
+    });
+}
+
+function clearSavedPasswords() {
+    localStorage.removeItem("savedPasswords");
+    displaySavedPasswords();
+}
+
+// 🌙/☀️ Thème dynamique
+function toggleTheme() {
+  const body = document.body;
+  const btn = document.getElementById("theme-toggle");
+
+  if (body.classList.contains("dark-mode")) {
+    body.classList.remove("dark-mode");
+    body.classList.add("light-mode");
+    btn.textContent = "🌙";
+    localStorage.setItem("theme", "light");
+  } else {
+    body.classList.remove("light-mode");
+    body.classList.add("dark-mode");
+    btn.textContent = "☀️";
+    localStorage.setItem("theme", "dark");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("theme") || "dark";
+  document.body.classList.add(saved === "dark" ? "dark-mode" : "light-mode");
+  const btn = document.getElementById("theme-toggle");
+  if (btn) btn.textContent = saved === "dark" ? "☀️" : "🌙";
+
+  displaySavedPasswords();
+});
