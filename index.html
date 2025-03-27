@@ -1,66 +1,108 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberShield Web</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield Web</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>🔍 CyberShield Web</h1>
 
-        <nav>
-            <button onclick="toggleSection('site-checker')">🔎 Vérification de Sites</button>
-            <button onclick="toggleSection('password-manager')">🔑 Gestionnaire de Mots de Passe</button>
-            <button onclick="toggleSection('breach-checker')">📜 Vérification de Fuite de Données</button>
-            <button onclick="toggleSection('file-scanner')">🛡 Analyse de Fichiers</button>
-        </nav>
+  <nav class="navbar">
+    <div class="theme-footer">
+  <button id="theme-toggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
+</div>
+    <div class="logo">CyberShield</div>
+    <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#verification">🔍 Vérification</a></li>
+      <li><a href="#password">🔐 Mots de Passe</a></li>
+      <li><a href="#data">📡 Fuite Données</a></li>
+      <li><a href="#files">🗂️ Analyse Fichier</a></li>
+    </ul>
+  </nav>
 
-        <section id="site-checker">
-            <h2>🔎 Vérification de Sites</h2>
-            <input type="text" id="urlInput" placeholder="https://example.com">
-            <button onclick="checkSite()">Vérifier</button>
-            <div id="loader" class="hidden">⏳ Analyse en cours...</div>
-            <div id="result-box" class="hidden">
-                <h2>Résultat :</h2>
-                <p id="result">Aucune vérification effectuée</p>
-                <button id="copy-button" class="hidden" onclick="copyResult()">📋 Copier</button>
-                <button id="report-button" class="hidden" onclick="reportSite()">🚨 Signaler ce site</button>
-            </div>
-            <div id="history">
-                <h3>📜 Historique</h3>
-                <div id="history-list"></div>
-                <button onclick="clearHistory()">🗑 Effacer l'historique</button>
-            </div>
-        </section>
+  <div class="container">
+  <section id="whitelist-manager" class="hidden"> <h2>✅ Liste Blanche (Sites de Confiance)</h2> <input type="text" id="whitelistInput" placeholder="https://monsite.com"> <button onclick="addToWhitelist()">Ajouter à la liste blanche</button> <div id="whitelist-display" style="margin-top:20px;"> <h3>Sites enregistrés :</h3> <ul id="whitelist-list"></ul> <button onclick="clearWhitelist()">🗑 Vider la liste</button> </div> </section>
+    <h1>🔍 CyberShield Web</h1>
+ 
+    <nav>
+      <button onclick="toggleSection('site-checker')">🔎 Vérification de Sites</button>
+      <button onclick="toggleSection('whitelist-manager')">✅ Liste Blanche</button>
+      <button onclick="toggleSection('password-manager')">🔑 Gestionnaire de Mots de Passe</button>
+      <button onclick="toggleSection('breach-checker')">📜 Vérification de Fuite de Données</button>
+      <button onclick="toggleSection('file-scanner')">🛡 Analyse de Fichiers</button>
+    </nav>
 
-        <section id="password-manager" class="hidden">
-            <h2>🔑 Gestionnaire de Mots de Passe</h2>
-            <input type="text" id="generated-password" readonly>
-            <button onclick="generatePassword()">🔄 Générer</button>
-            <button onclick="copyPassword()">📋 Copier</button>
-            <h3>🔎 Vérification de la Robustesse</h3>
-            <input type="password" id="passwordInput" placeholder="Entrez un mot de passe">
-            <button onclick="checkPasswordStrength()">Vérifier</button>
-            <p id="password-strength"></p>
-        </section>
+    <!-- 🔎 Vérification de Sites -->
+    <section id="site-checker">
+      <h2>🔎 Vérification de Sites</h2>
+      <input type="text" id="urlInput" placeholder="https://example.com">
+      <button onclick="checkSite()">Vérifier</button>
+      <div id="loader" class="hidden">⏳ Analyse en cours...</div>
+      <div id="result-box" class="hidden">
+        <h2>Résultat :</h2>
+        <p id="result">Aucune vérification effectuée</p>
+        <button id="copy-button" class="hidden" onclick="copyResult()">📋 Copier</button>
+        <button id="report-button" class="hidden" onclick="reportSite()">🚨 Signaler ce site</button>
+      </div>
+      <div id="history">
+        <h3>📜 Historique</h3>
+        <div id="history-list"></div>
+        <button onclick="clearHistory()">🗑 Effacer l'historique</button>
+      </div>
+    </section>
 
-        <section id="breach-checker" class="hidden">
-            <h2>📜 Vérification de Fuite de Données</h2>
-            <input type="email" id="emailInput" placeholder="Entrez votre email">
-            <button onclick="checkDataBreach()">Vérifier</button>
-            <p id="breach-result"></p>
-        </section>
+    <!-- 🔑 Gestionnaire de Mots de Passe -->
+    <section id="password-manager" class="hidden">
+      <h2>🔑 Gestionnaire de Mots de Passe</h2>
+      <input type="text" id="generated-password" readonly>
+      <button onclick="generatePassword()">🔄 Générer</button>
+      <button onclick="copyPassword()">📋 Copier</button>
 
-        <section id="file-scanner" class="hidden">
-            <h2>🛡 Analyse de Fichiers</h2>
-            <input type="file" id="fileInput">
-            <button onclick="scanFile()">Analyser</button>
-            <p id="file-result"></p>
-        </section>
-    </div>
+      <h3>🔎 Vérification de la Robustesse</h3>
+      <input type="password" id="passwordInput" placeholder="Entrez un mot de passe">
+      <div style="margin-top: 10px;">
+        <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
+        <label for="showPassword">Afficher le mot de passe</label>
+      </div>
+      <button onclick="checkPasswordStrength()">Vérifier</button>
+      <p id="password-strength"></p>
+      <div id="password-strength-bar" style="height: 10px; width: 100%; background-color: #ccc; border-radius: 10px; margin-top: 10px;">
+        <div id="password-strength-fill" style="height: 100%; width: 0%; background-color: transparent; border-radius: 10px;"></div>
+      </div>
 
-    <script src="script.js"></script>
+      <h3>🔧 Générateur Avancé</h3>
+      <label for="passwordLength">Longueur :</label>
+      <input type="range" id="passwordLength" min="6" max="32" value="16" oninput="updateLengthLabel(this.value)">
+      <span id="lengthLabel">16</span> caractères<br><br>
+
+      <label><input type="checkbox" id="includeLowercase" checked> Minuscules (a-z)</label><br>
+      <label><input type="checkbox" id="includeUppercase" checked> Majuscules (A-Z)</label><br>
+      <label><input type="checkbox" id="includeNumbers" checked> Chiffres (0-9)</label><br>
+      <label><input type="checkbox" id="includeSymbols" checked> Symboles (!@#$...)</label><br><br>
+
+      <button onclick="generateCustomPassword()">🔄 Générer personnalisé</button><br><br>
+      <input type="text" id="customPasswordOutput" readonly style="width:100%; padding:10px; border-radius:6px;">
+    </section>
+
+    <!-- 📡 Vérification de Fuite de Données -->
+    <section id="breach-checker" class="hidden">
+      <h2>📜 Vérification de Fuite de Données</h2>
+      <input type="email" id="emailInput" placeholder="Entrez votre email">
+      <button onclick="checkDataBreach()">Vérifier</button>
+      <p id="breach-result"></p>
+    </section>
+
+    <!-- 🗂️ Analyse de Fichiers -->
+    <section id="file-scanner" class="hidden">
+      <h2>🛡 Analyse de Fichiers</h2>
+      <input type="file" id="fileInput">
+      <button onclick="scanFile()">Analyser</button>
+      <p id="file-result"></p>
+    </section>
+  </div>
+
 </body>
 </html>
